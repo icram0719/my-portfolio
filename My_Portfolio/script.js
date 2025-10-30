@@ -133,3 +133,25 @@ langButtons.forEach(button => {
 // Set initial language on page load
 const savedLang = localStorage.getItem('selectedLang') || 'hu'; // Default to Hungarian
 changeLanguage(savedLang);
+
+// --- Section Animation on Scroll --- //
+const sections = document.querySelectorAll('section');
+
+const observerOptions = {
+    root: null, // viewport
+    rootMargin: '0px',
+    threshold: 0.1 // Trigger when 10% of the section is visible
+};
+
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target); // Stop observing once shown
+        }
+    });
+}, observerOptions);
+
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});

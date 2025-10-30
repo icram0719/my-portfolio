@@ -1,5 +1,9 @@
 body {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Fallback color */
+    background-image: linear-gradient(45deg, #f5f5f5 25%, transparent 25%, transparent 75%, #f5f5f5 75%, #f5f5f5),
+                      linear-gradient(45deg, #f5f5f5 25%, transparent 25%, transparent 75%, #f5f5f5 75%, #f5f5f5);
+    background-size: 20px 20px; /* Size of the pattern */
+    background-position: 0 0, 10px 10px; /* Offset for the second gradient to create the pattern */
     color: #333;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -32,6 +36,27 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    position: relative; /* Needed for the underline effect */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #007bff; /* Highlight color */
+    transition: width 0.3s ease; /* Smooth width transition for the underline */
+}
+
+nav ul li a:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Expand underline on hover */
 }
 
 #about {
@@ -118,6 +143,12 @@ nav ul li a {
     border-radius: 5px;
     color: #333;
     font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#education ul li:hover, #skills ul li:hover {
+    background-color: #d0d0d0; /* Slightly darker background on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 footer {
@@ -174,4 +205,16 @@ footer {
 
 .lang-button.active {
     background-color: #007bff; /* A distinct color for the active language */
+}
+
+/* Animation styles for sections */
+section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.show {
+    opacity: 1;
+    transform: translateY(0);
 }
